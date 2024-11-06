@@ -1,0 +1,47 @@
+
+---
+- hosts: webservers
+  tasks:
+    - name: installeerimine php7.0
+      apt: name=php update_cache=yes state=latest
+
+    - name: installeerimine libapache-mod-php
+      apt: name=libapache2-mod-php update_cache=yes state=latest
+  
+    - name: installeerimine php-mysql
+      apt: name=php-mysql update_cache=yes state=latest
+
+    - name: Alglaadimine Apache2
+      service:
+        name: apache2
+        state: restarted
+
+
+    - name: teeb uus fail
+      lineinfile:
+        dest: /var/www/html/phpinfo.php
+        regexp: '^'
+        line: ''
+        state: present
+        create: True
+
+    - name: muu kõik
+      lineinfile:
+        dest: /var/www/html/phpinfo.php
+        line: '<?php'
+        state: present
+
+    - name: muu kõik
+      lineinfile:
+        dest: /var/www/html/phpinfo.php
+        line: 'phpinfo();\n?>'
+        state: present
+
+    - name: muu kõik
+      lineinfile:
+        dest: /var/www/html/phpinfo.php
+        line: '?>'
+        state: present
+
+
+
